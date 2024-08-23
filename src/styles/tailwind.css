@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .primary-btn {
+    @apply bg-primary border-2 border-primary  text-white text-xl p-3 w-full transition-all duration-300 rounded-md  
+    flex gap-3 items-center justify-center cursor-pointer relative;
+  }
+  .primary-btn:hover {
+    @apply bg-white border border-primary  text-primary  font-bold p-3 w-full transition-all duration-300 rounded-md;
+  }
+  .primary-btn.active {
+    @apply border-2 border-primary text-3xl font-extrabold p-3 w-full transition-all duration-300 rounded-md;
+  }
+
+  .primary-btn-border {
+    @apply bg-white border border-primary text-primary text-xl p-3 w-full transition-all duration-300 rounded-md  
+    flex gap-3 items-center justify-center cursor-pointer relative;
+  }
+  .primary-btn-border:hover {
+    @apply border border-primary  text-2xl  font-bold p-3 w-full transition-all duration-300 rounded-md;
+  }
+  .primary-btn-border.active {
+    @apply border-2 border-primary bg-primary text-white text-3xl font-extrabold p-3 w-full transition-all rounded-md;
+  }
+
+  .customInput {
+    @apply border rounded-md p-2 w-full h-9;
+  }
+  .customBox {
+    @apply relative invisible top-[-40px] opacity-0  p-2 w-full z-0 transition-all duration-300;
+  }
+  .customBox.active {
+    @apply relative  visible top-0 opacity-100  p-2 w-full z-0 transition-all duration-300;
+  }
+}
