@@ -13,6 +13,12 @@
   .primary-btn.active {
     @apply border-2 border-primary text-3xl font-extrabold p-3 w-full transition-all duration-300 rounded-md;
   }
+  .primary-btn:disabled {
+    @apply bg-gray opacity-50 text-white font-normal;
+  }
+  .primary-btn:disabled:hover {
+    @apply bg-gray opacity-50 text-white font-normal;
+  }
 
   .primary-btn-border {
     @apply bg-white border border-primary text-primary text-xl p-3 w-full transition-all duration-300 rounded-md  

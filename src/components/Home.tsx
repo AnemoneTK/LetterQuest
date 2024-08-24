@@ -1,15 +1,44 @@
 import { useState } from "react";
 import Setting from "./Setting";
+import { Link } from "react-router-dom";
 export default function Home() {
   const [mode, setMode] = useState<string>("");
+  const [customOption, setCustomOption] = useState<{
+    length: number;
+    round: number;
+  }>({
+    length: 0,
+    round: 0,
+  });
+
   return (
     <>
       <div className="flex flex-col gap-5 md:gap-10 lg:gap-20 items-center justify-center h-dvh md:h-full">
-        <div className=" text-center font-extrabold text-7xl">Letter Quest</div>
-        {mode}
-        <Setting mode={mode} setMode={setMode} name="" />
+        <div className=" text-center font-extrabold text-6xl md:text-7xl">
+          Letter Quest
+        </div>
+        <Setting
+          mode={mode}
+          setMode={setMode}
+          name=""
+          customOption={customOption}
+          setCustomOption={setCustomOption}
+        />
         <div className="flex flex-col gap-5 w-72">
-          <button className="primary-btn ">Start</button>
+          <Link
+            to={`game/${mode}${
+              mode === "custom"
+                ? `?round=${customOption.round}&length=${customOption.length}`
+                : ""
+            }`}
+          >
+            <button
+              className="primary-btn"
+              disabled={mode === "" ? true : false}
+            >
+              Start
+            </button>
+          </Link>
           <button className="flex items-center justify-center gap-3 text-xl hover:underline">
             <svg
               xmlns="http://www.w3.org/2000/svg"
