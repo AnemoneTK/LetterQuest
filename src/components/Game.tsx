@@ -6,7 +6,7 @@ export default function Game() {
   const location = useLocation();
 
   const { mode } = useParams();
-  const [word, setWord] = useState<string>("");
+  const [word, setWord] = useState<string[]>([]);
   const [length, setLength] = useState<number>(0);
   const [round, setRound] = useState<number>(0);
   const [guess, setGuess] = useState<string[][]>([]);
@@ -21,12 +21,15 @@ export default function Game() {
     if (mode === "easy") {
       generatedWords = generate({ minLength: 5, maxLength: 7 });
       setRound(10);
+      setLength(generatedWords.length);
     } else if (mode === "normal") {
       generatedWords = generate({ minLength: 7, maxLength: 10 });
       setRound(5);
+      setLength(generatedWords.length);
     } else if (mode === "hard") {
       generatedWords = generate({ minLength: 7, maxLength: 10 });
       setRound(5);
+      setLength(generatedWords.length);
     } else if (mode === "custom") {
       // In custom mode, get length and round from the URL parameters
       const roundParam = queryParams.get("round");
@@ -47,13 +50,21 @@ export default function Game() {
 
     if (generatedWords) {
       if (Array.isArray(generatedWords)) {
-        setWord(generatedWords[0]);
+        setWord(generatedWords[0].split(""));
       } else {
-        setWord(generatedWords);
+        setWord(generatedWords.split(""));
       }
     }
     setGuess(Array.from({ length: round }, () => Array(length).fill("")));
   }, [length, location.search, mode, round]);
+
+  useEffect(() => {
+    if (word.length > 0) {
+      setGuess(
+        Array.from({ length: round }, () => Array(word.length).fill(""))
+      );
+    }
+  }, [word, round]);
 
   const handleSubmit = () => {
     setGuess((prevGuess) => {
@@ -63,7 +74,7 @@ export default function Game() {
       if (pointer < round) {
         newGuess[pointer] = Array.from(
           { length },
-          (_, index) => input[index] || ""
+          (_, index) => input[index].toLowerCase() || ""
         );
         // Increment the counter for the next round
         setCounter(counter + 1);
@@ -76,7 +87,6 @@ export default function Game() {
     console.log(guess);
   };
 
-  const checkAnswer = (answer) => {};
   return (
     <>
       <div>Mode :{mode}</div>
@@ -85,6 +95,7 @@ export default function Game() {
         Round :{counter}/{round}, Length:{length}
       </div>
       <div>{guess.length}</div>
+      <div>{input}</div>
       input:
       <input
         type="text"
@@ -101,10 +112,25 @@ export default function Game() {
         {guess.map((row, rowIndex) => (
           <div key={rowIndex} className=" h-10 flex flex-row gap-3">
             {row.map((letter, index) => {
+              console.log(row);
               return (
                 <div
                   key={index}
-                  className="border h-full w-10  flex flex-col items-center justify-center"
+                  className={`border rounded-md h-full w-10  flex flex-col items-center justify-center
+                    ${
+                      mode === "hard"
+                        ? word.includes(letter) &&
+                          row.join("") !== word.join("")
+                          ? "bg-yellow"
+                          : row.join("") === word.join("")
+                          ? "bg-green"
+                          : ""
+                        : word.includes(letter) && letter !== word[index]
+                        ? "bg-yellow"
+                        : letter === word[index]
+                        ? "bg-green"
+                        : ""
+                    }`}
                 >
                   {letter.toUpperCase()}
                 </div>
