@@ -23,16 +23,21 @@ export default function Popup({
         <div>Mode</div>
         <div className="text-2xl">{mode?.toUpperCase()}</div>
         <div
-          className={`text-7xl font-bold my-2 ${
+          className={`text-4xl md:text-5xl font-bold my-2 ${
             result === "win" ? "text-easy" : "text-hard"
           }`}
         >
           {result.toUpperCase()}
         </div>
-        <div>
-          {counter} / {round}
+        <div className=" text-xl md:text-2xl">
+          Round : {counter} / {round}
         </div>
-        <div>{word}</div>
+        <div className="text-2xl mt-2 text-center my-5">
+          Answer <br />
+          <span className="text-4xl md:text-6xl font-bold">
+            {word.toUpperCase()}
+          </span>
+        </div>
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-3 mt-2">
           <button
             className="primary-btn"

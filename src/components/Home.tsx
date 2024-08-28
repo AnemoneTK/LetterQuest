@@ -39,7 +39,10 @@ export default function Home() {
               Start
             </button>
           </Link>
-          <button className="flex items-center justify-center gap-3 text-xl hover:underline">
+          <Link
+            to={"rule"}
+            className="flex items-center justify-center gap-3 text-xl hover:underline"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -55,7 +58,7 @@ export default function Home() {
               />
             </svg>
             How to play
-          </button>
+          </Link>
         </div>
       </div>
     </>

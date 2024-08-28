@@ -8,6 +8,7 @@ import "./styles/App.css";
 
 import Home from "./components/Home";
 import Game from "./components/Game";
+import Rule from "./components/Rule";
 
 function Layout() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="game/:mode" element={<Game />} />
+          <Route path="rule" element={<Rule />} />
         </Route>
       </Routes>
     </Router>

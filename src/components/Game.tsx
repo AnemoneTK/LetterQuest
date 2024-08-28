@@ -107,7 +107,7 @@ export default function Game() {
 
   return (
     <>
-      <div className={`popup w-2/3 md:w-1/3 ${popup ? "active" : ""}`}>
+      <div className={`popup w-2/3 md:w-[40dvw] ${popup ? "active" : ""}`}>
         <Popup
           mode={mode}
           counter={counter}
@@ -140,7 +140,7 @@ export default function Game() {
         </Link>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <div className="text-4xl md:text-4xl font-bold my-3">
+        <div className="text-4xl md:text-4xl font-bold mt-12 md:mt-7">
           {mode?.toUpperCase()}
         </div>
         <div className="text-4xl ">
