@@ -77,9 +77,8 @@ export default function Game() {
         const newGuess = [...prevGuess];
 
         const pointer = counter - 1;
-        newGuess[pointer] = Array.from(
-          { length },
-          (_, index) => input[index].toLowerCase() || ""
+        newGuess[pointer] = Array.from({ length }, (_, index) =>
+          input[index] ? input[index].toLowerCase() : ""
         );
         // Increment the counter for the next round
         return newGuess;
@@ -87,14 +86,14 @@ export default function Game() {
       const answer = word.join("");
       if (counter === round) {
         if (input === answer) {
-          setResult("Win");
+          setResult("win");
         } else {
-          setResult("Loss");
+          setResult("loss");
         }
         setPopup(true);
-      } else {
+      } else if (counter != round) {
         if (input === answer) {
-          setResult("Win");
+          setResult("win");
           setPopup(true);
         } else {
           setCounter(counter + 1);
@@ -104,8 +103,6 @@ export default function Game() {
     } else {
       alert("No input");
     }
-
-    //check answer
   };
 
   return (
@@ -116,6 +113,7 @@ export default function Game() {
           counter={counter}
           round={round}
           result={result}
+          word={word.join("")}
           setPopup={setPopup}
         />
       </div>
@@ -145,31 +143,47 @@ export default function Game() {
         <div className="text-4xl md:text-4xl font-bold my-3">
           {mode?.toUpperCase()}
         </div>
-        <div className="text-4xl">
-          Round : {counter} / {round}
+        <div className="text-4xl ">
+          Round :{" "}
+          <span
+            className={`${
+              counter >= round - 2 && counter != round
+                ? "text-yellow"
+                : counter == round
+                ? "text-hard"
+                : "text-primary"
+            }`}
+          >
+            {counter} / {round}
+          </span>
         </div>
       </div>
       <div className="flex flex-row items-center justify-center py-5">
         <input
           type="text"
-          className="border p-2"
+          className="border p-2 rounded-md"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           maxLength={length}
           minLength={length}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSubmit();
+          }}
+          autoFocus
         />
-        <button className="border border-primary p-2" onClick={handleSubmit}>
-          Submit
-        </button>
       </div>
-      <div className="flex flex-col gap-3 items-center justify-center">
-        {guess.map((row, rowIndex) => (
-          <div key={rowIndex} className=" h-10 flex flex-row gap-3">
-            {row.map((letter, index) => {
-              return (
-                <div
-                  key={index}
-                  className={`border rounded-md h-full w-10  flex flex-col items-center justify-center
+      <div className="h-3/4 overflow-auto p-5">
+        <div
+          className="flex flex-col gap-3 items-center justify-center "
+          style={{ maxHeight: "80dvh" }}
+        >
+          {guess.map((row, rowIndex) => (
+            <div key={rowIndex} className=" h-6 md:h-10  flex flex-row gap-3">
+              {row.map((letter, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`border rounded-md h-6 md:h-10 w-full aspect-[1]  flex flex-col items-center justify-center
                     ${
                       mode === "hard"
                         ? word.includes(letter) &&
@@ -184,13 +198,14 @@ export default function Game() {
                         ? "bg-green"
                         : ""
                     }`}
-                >
-                  {letter.toUpperCase()}
-                </div>
-              );
-            })}
-          </div>
-        ))}
+                  >
+                    {letter.toUpperCase()}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
