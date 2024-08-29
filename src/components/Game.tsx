@@ -187,13 +187,12 @@ export default function Game() {
                           : ""
                         : word.includes(letter) &&
                           letter !== word[index] &&
-                          word.filter((l) => l === letter).length < 1 &&
-                          row.filter((l) => l === letter).length < 1
+                          word.filter((l) => l === letter).length == 1
                         ? "bg-yellow"
                         : letter === word[index]
                         ? "bg-green"
                         : word.includes(letter) &&
-                          letter !== word[index] &&
+                          row[index] !== word[index] &&
                           word.filter((l) => l === letter).length > 1
                         ? "bg-orange"
                         : ""
