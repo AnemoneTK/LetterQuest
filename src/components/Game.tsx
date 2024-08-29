@@ -81,14 +81,14 @@ export default function Game() {
       });
       const answer = word.join("");
       if (counter == round) {
-        if (input == answer) {
+        if (input.toLowerCase() == answer) {
           setResult("win");
         } else {
           setResult("loss");
         }
         setPopup(true);
       } else if (counter < round) {
-        if (input == answer) {
+        if (input.toLowerCase() == answer) {
           setResult("win");
           setPopup(true);
         } else {
@@ -103,7 +103,7 @@ export default function Game() {
 
   return (
     <>
-      <div className={`popup w-2/3 md:w-[40dvw] ${popup ? "active" : ""}`}>
+      <div className={`popup w-2/3 md:w-[40dvw]  ${popup ? "active" : ""}`}>
         <Popup
           mode={mode}
           counter={counter}
