@@ -168,9 +168,9 @@ export default function Game() {
           autoFocus
         />
       </div>
-      <div className="h-3/4 overflow-auto p-5">
+      <div className="h-3/4 overflow-auto p-5 ">
         <div
-          className="flex flex-col gap-3 items-center justify-center "
+          className="flex flex-col gap-3 items-center justify-items-start "
           style={{ maxHeight: "80dvh" }}
         >
           {guess.map((row, rowIndex) => (
