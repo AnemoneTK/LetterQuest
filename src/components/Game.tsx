@@ -194,8 +194,7 @@ export default function Game() {
                         ? "bg-green"
                         : word.includes(letter) &&
                           letter !== word[index] &&
-                          word.filter((l) => l === letter).length > 1 &&
-                          row.filter((l) => l === letter).length > 1
+                          word.filter((l) => l === letter).length > 1
                         ? "bg-orange"
                         : ""
                     }`}
