@@ -137,7 +137,7 @@ export default function Game() {
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className="text-4xl md:text-4xl font-bold mt-12 md:mt-7">
-          {mode?.toUpperCase()}
+          {mode?.toUpperCase()},{word}
         </div>
         <div className="text-4xl ">
           Round :{" "}
@@ -185,10 +185,16 @@ export default function Game() {
                         ? letter === word[index]
                           ? "bg-green"
                           : ""
-                        : word.includes(letter) && letter !== word[index]
+                        : word.includes(letter) &&
+                          letter !== word[index] &&
+                          row.filter((l) => l === letter).length < 1
                         ? "bg-yellow"
                         : letter === word[index]
                         ? "bg-green"
+                        : word.includes(letter) &&
+                          letter !== word[index] &&
+                          row.filter((l) => l === letter).length > 1
+                        ? "bg-orange"
                         : ""
                     }`}
                   >
