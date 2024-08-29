@@ -24,12 +24,12 @@ export default function Game() {
     const queryParams = new URLSearchParams(location.search);
 
     if (mode === "easy") {
-      generatedWords = generate({ minLength: 5, maxLength: 7 });
+      generatedWords = generate({ minLength: 5, maxLength: 5 });
       setRound(10);
       setLength(generatedWords.length);
     } else if (mode === "normal" || mode === "hard") {
       generatedWords = generate({ minLength: 5, maxLength: 7 });
-      setRound(5);
+      setRound(7);
       setLength(generatedWords.length);
     } else if (mode === "custom") {
       // In custom mode, get length and round from the URL parameters
