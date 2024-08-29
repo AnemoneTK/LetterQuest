@@ -27,12 +27,8 @@ export default function Game() {
       generatedWords = generate({ minLength: 5, maxLength: 7 });
       setRound(10);
       setLength(generatedWords.length);
-    } else if (mode === "normal") {
-      generatedWords = generate({ minLength: 7, maxLength: 10 });
-      setRound(5);
-      setLength(generatedWords.length);
-    } else if (mode === "hard") {
-      generatedWords = generate({ minLength: 7, maxLength: 10 });
+    } else if (mode === "normal" || mode === "hard") {
+      generatedWords = generate({ minLength: 5, maxLength: 7 });
       setRound(5);
       setLength(generatedWords.length);
     } else if (mode === "custom") {
@@ -84,15 +80,15 @@ export default function Game() {
         return newGuess;
       });
       const answer = word.join("");
-      if (counter === round) {
-        if (input === answer) {
+      if (counter == round) {
+        if (input == answer) {
           setResult("win");
         } else {
           setResult("loss");
         }
         setPopup(true);
-      } else if (counter != round) {
-        if (input === answer) {
+      } else if (counter < round) {
+        if (input == answer) {
           setResult("win");
           setPopup(true);
         } else {
@@ -186,10 +182,7 @@ export default function Game() {
                     className={`border rounded-md h-6 md:h-10 w-full aspect-[1]  flex flex-col items-center justify-center
                     ${
                       mode === "hard"
-                        ? word.includes(letter) &&
-                          row.join("") !== word.join("")
-                          ? "bg-yellow"
-                          : row.join("") === word.join("")
+                        ? letter === word[index]
                           ? "bg-green"
                           : ""
                         : word.includes(letter) && letter !== word[index]
