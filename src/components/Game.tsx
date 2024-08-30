@@ -122,7 +122,7 @@ export default function Game() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="1.7"
+            strokeWidth="2"
             stroke="currentColor"
             className="size-6"
           >
@@ -136,7 +136,7 @@ export default function Game() {
         </Link>
       </div>
       <div className="flex flex-col items-center justify-center">
-        <div className="text-4xl md:text-4xl font-bold mt-12 md:mt-7">
+        <div className="text-4xl font-extrabold mt-12 md:mt-7">
           {mode?.toUpperCase()}
         </div>
         <div className="text-4xl ">
@@ -144,17 +144,17 @@ export default function Game() {
           <span
             className={`${
               counter >= round - 2 && counter != round
-                ? "text-yellow"
+                ? "text-orange"
                 : counter == round
                 ? "text-hard"
                 : "text-primary"
-            }`}
+            } font-bold`}
           >
             {counter} / {round}
           </span>
         </div>
       </div>
-      <div className="flex flex-row items-center justify-center py-5">
+      <div className="flex flex-col items-center justify-center py-5">
         <input
           type="text"
           className="border p-2 rounded-md"
@@ -167,6 +167,7 @@ export default function Game() {
           }}
           autoFocus
         />
+        <p className="mt-1 opacity-50">press Enter or Return to submit</p>
       </div>
       <div className="h-3/4 overflow-auto p-5 ">
         <div
@@ -182,8 +183,14 @@ export default function Game() {
                     className={`border rounded-md h-6 md:h-10 w-full aspect-[1]  flex flex-col items-center justify-center
                     ${
                       mode === "hard"
-                        ? letter === word[index]
-                          ? "bg-green"
+                        ? word.includes(letter) &&
+                          letter !== word[index] &&
+                          word.filter((l) => l === letter).length == 1
+                          ? "bg-yellow"
+                          : word.includes(letter) &&
+                            row[index] !== word[index] &&
+                            word.filter((l) => l === letter).length > 1
+                          ? "bg-orange"
                           : ""
                         : word.includes(letter) &&
                           letter !== word[index] &&
