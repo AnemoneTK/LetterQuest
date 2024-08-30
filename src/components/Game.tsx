@@ -23,15 +23,7 @@ export default function Game() {
     let generatedWords;
     const queryParams = new URLSearchParams(location.search);
 
-    if (mode === "easy") {
-      generatedWords = generate({ minLength: 5, maxLength: 5 });
-      setRound(10);
-      setLength(generatedWords.length);
-    } else if (mode === "normal" || mode === "hard") {
-      generatedWords = generate({ minLength: 5, maxLength: 7 });
-      setRound(7);
-      setLength(generatedWords.length);
-    } else if (mode === "custom") {
+    if (mode === "custom") {
       // In custom mode, get length and round from the URL parameters
       const roundParam = queryParams.get("round");
       const lengthParam = queryParams.get("length");
@@ -47,6 +39,16 @@ export default function Game() {
           maxLength: length,
         });
       }
+    } else {
+      generatedWords = generate({ minLength: 5, maxLength: 7 });
+      if (mode == "easy") {
+        setRound(10);
+      } else if (mode == "normal") {
+        setRound(5);
+      } else if (mode == "hard") {
+        setRound(7);
+      }
+      setLength(generatedWords.length);
     }
 
     if (generatedWords) {
@@ -76,7 +78,6 @@ export default function Game() {
         newGuess[pointer] = Array.from({ length }, (_, index) =>
           input[index] ? input[index].toLowerCase() : ""
         );
-        // Increment the counter for the next round
         return newGuess;
       });
       const answer = word.join("");
@@ -154,7 +155,7 @@ export default function Game() {
           </span>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center py-5">
+      <div className="flex flex-col items-center justify-center pt-5">
         <input
           type="text"
           className="border p-2 rounded-md"
